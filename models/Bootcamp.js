@@ -1,4 +1,5 @@
-import { Schema, Model } from 'mongoose'
+import pkg from 'mongoose'
+const { Schema, model } = pkg
 
 const BootcampSchema = new Schema({
   name: {
@@ -41,11 +42,10 @@ const BootcampSchema = new Schema({
     type: {
       type: String,
       enum: ['Point'],
-      required: true,
     },
     coordinates: {
       type: [Number],
-      required: true,
+
       index: '2dsphere',
     },
     formattedAddress: String,
@@ -59,7 +59,7 @@ const BootcampSchema = new Schema({
     // Array of strings
     type: [String],
     required: true,
-    enum: ['Web development', 'Mobile development', 'UI/UX', 'Data science', 'Business', 'Other'],
+    enum: ['Web Development', 'Mobile Development', 'UI/UX', 'Data Science', 'Business', 'Other'],
   },
   avarageRaiting: {
     type: Number,
@@ -93,4 +93,4 @@ const BootcampSchema = new Schema({
   },
 })
 
-export default Model('Bootcamp', BootcampSchema)
+export default model('Bootcamp', BootcampSchema)

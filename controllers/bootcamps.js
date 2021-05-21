@@ -1,17 +1,50 @@
+import Bootcamp from '../models/Bootcamp.js'
+
 // @desc    Get all bootcamps
 // @route   GET /api/v1/bootcamps
 // @access  Public
-export const getBootcamps = (req, res, next) => {}
+export const getBootcamps = async (req, res, next) => {
+  try {
+    const bootcamps = await Bootcamp.find()
+    res.status(200).json({
+      success: true,
+      data: bootcamps,
+    })
+  } catch (err) {
+    res.status(400).json({ seccess: false })
+  }
+}
 
 // @desc    Get single bootcamp
 // @route   GET /api/v1/bootcamps/:id
 // @access  Public
-export const getBootcamp = (req, res, next) => {}
+export const getBootcamp = async (req, res, next) => {
+  try {
+    const bootcamp = await Bootcamp.findById(req.params.id)
+    if (!bootcamp) {
+      res.status(400).json({ success: false })
+    }
+    res.status(200).json({ success: true, data: bootcamp })
+  } catch (err) {
+    res.status(400).json({ success: false })
+  }
+}
 
 // @desc    Create new bootcamp
 // @route   POST /api/v1/bootcamps/
 // @access  Private
-export const createBootcamp = (req, res, next) => {}
+export const createBootcamp = async (req, res, next) => {
+  try {
+    const bootcamp = await Bootcamp.create(req.body)
+
+    res.status(200).json({
+      success: true,
+      data: bootcamp,
+    })
+  } catch (err) {
+    res.status(400).json({ success: false })
+  }
+}
 
 // @desc    Update new bootcamp
 // @route   PUT /api/v1/bootcamps/:id
