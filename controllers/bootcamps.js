@@ -1,4 +1,5 @@
 import Bootcamp from '../models/Bootcamp.js'
+import ErrorResponse from '../utils/errorResponse.js'
 
 // @desc    Get all bootcamps
 // @route   GET /api/v1/bootcamps
@@ -12,7 +13,7 @@ export const getBootcamps = async (req, res, next) => {
       data: bootcamps,
     })
   } catch (err) {
-    res.status(400).json({ seccess: false })
+    next(err)
   }
 }
 
@@ -23,12 +24,12 @@ export const getBootcamp = async (req, res, next) => {
   try {
     const bootcamp = await Bootcamp.findById(req.params.id)
     if (!bootcamp) {
-      res.status(400).json({ success: false })
+      return next(new ErrorResponse(`Bootcamp with id: ${req.params.id} not found`, 404))
     }
     res.status(200).json({ success: true, data: bootcamp })
   } catch (err) {
+    // next(new ErrorResponse(`Bootcamp with id: ${req.params.id} not found`, 404))
     next(err)
-    // res.status(400).json({ success: false })
   }
 }
 
@@ -44,7 +45,7 @@ export const createBootcamp = async (req, res, next) => {
       data: bootcamp,
     })
   } catch (err) {
-    res.status(400).json({ success: false })
+    next(err)
   }
 }
 
@@ -58,11 +59,11 @@ export const updateBootcamp = async (req, res, next) => {
       runValidators: true,
     })
     if (!bootcamp) {
-      return res.status(400).json({ success: false })
+      return next(new ErrorResponse(`Bootcamp with id: ${req.params.id} not found`, 404))
     }
     res.status(200).json({ success: true, data: bootcamp })
   } catch (err) {
-    res.status(400).json({ success: false })
+    next(err)
   }
 }
 
@@ -73,10 +74,10 @@ export const deleteBootcamp = async (req, res, next) => {
   try {
     const bootcamp = await Bootcamp.findByIdAndDelete(req.params.id)
     if (!bootcamp) {
-      return res.status(400).json({ success: false })
+      return next(new ErrorResponse(`Bootcamp with id: ${req.params.id} not found`, 404))
     }
     res.status(200).json({ success: true, data: {} })
   } catch (err) {
-    res.status(400).json({ success: false })
+    next(err)
   }
 }
