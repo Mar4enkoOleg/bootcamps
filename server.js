@@ -24,6 +24,9 @@ if (process.env.NODE_ENV === 'development') {
 import bootcamps from './routes/bootcamps.js'
 app.use('/api/v1/bootcamps', bootcamps)
 
+import errorHandler from './middlewares/error.js'
+app.use(errorHandler)
+
 const server = app.listen(PORT, () => console.info(`Server running in ${process.env.NODE_ENV} mode, on port ${PORT}`.cyan))
 
 // Handle unhandled promise rejections
