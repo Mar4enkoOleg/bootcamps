@@ -39,3 +39,5 @@ process.on('unhandledRejection', (err, promise) => {
     process.exit(1)
   })
 })
+
+// watch 5. async await middleware
