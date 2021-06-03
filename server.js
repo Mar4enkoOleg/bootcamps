@@ -1,10 +1,10 @@
 import express from 'express'
-import pkg from 'dotenv'
+import Dotenv from 'dotenv'
 import morgan from 'morgan'
 import colors from 'colors'
 colors.enable()
 // import logger from './middlewares/logger.js'
-pkg.config({ path: './config/config.env' })
+Dotenv.config({ path: './config/config.env' })
 
 import connectDB from './config/db.js'
 connectDB()
