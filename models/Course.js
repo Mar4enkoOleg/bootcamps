@@ -39,4 +39,37 @@ const CourseSchema = Schema({
   },
 })
 
+CourseSchema.statics.getAverageCost = async function (bootcampId) {
+  console.log('Calc avg cost'.yellow)
+  const obj = await this.aggregate([
+    {
+      $match: { bootcamp: bootcampId },
+    },
+    {
+      $group: {
+        _id: '$bootcamp',
+        averageCost: { $avg: '$tuition' },
+      },
+    },
+  ])
+  try {
+    console.log(obj)
+    await this.model('Bootcamp').findByIdAndUpdate(bootcampId, {
+      averageCost: Math.ceil(obj[0].averageCost / 10) * 10,
+    })
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+// Call getAvarageCost after save
+CourseSchema.post('save', function () {
+  this.constructor.getAverageCost(this.bootcamp)
+})
+
+// Call getAvarageCost before delete
+CourseSchema.pre('remove', function () {
+  this.constructor.getAverageCost(this.bootcamp)
+})
+
 export default model('Course', CourseSchema)

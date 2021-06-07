@@ -69,7 +69,7 @@ const BootcampSchema = new Schema(
       min: [1, 'Raiting must be at least 1'],
       max: [10, 'Raiting must can not be more than 10'],
     },
-    avarageCost: Number,
+    averageCost: Number,
     photo: {
       type: String,
       default: 'no-photo.jpg',
