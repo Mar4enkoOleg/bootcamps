@@ -7,21 +7,6 @@ import geocoder from '../utils/geocoder.js'
 // @route   GET /api/v1/bootcamps
 // @access  Public
 
-// Example without asyncHandler
-
-// export const getBootcamps = async (req, res, next) => {
-//   try {
-//     const bootcamps = await Bootcamp.find()
-//     res.status(200).json({
-//       success: true,
-//       count: bootcamps.length,
-//       data: bootcamps,
-//     })
-//   } catch (err) {
-//     next(err)
-//   }
-// }
-
 export const getBootcamps = asyncHandler(async (req, res, next) => {
   const reqQuery = { ...req.query }
 
@@ -59,7 +44,6 @@ export const getBootcamps = asyncHandler(async (req, res, next) => {
   const startIndex = (page - 1) * limit
   const endIndex = page * limit
   const total = await Bootcamp.countDocuments()
-  console.log(total, endIndex)
 
   query = query.limit(limit).skip(startIndex)
 
