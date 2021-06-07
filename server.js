@@ -9,6 +9,10 @@ Dotenv.config({ path: './config/config.env' })
 import connectDB from './config/db.js'
 connectDB()
 
+// Import routes
+import bootcamps from './routes/bootcamps.js'
+import courses from './routes/courses.js'
+
 const PORT = process.env.PORT || 3002
 const app = express()
 
@@ -21,8 +25,8 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Routes
-import bootcamps from './routes/bootcamps.js'
 app.use('/api/v1/bootcamps', bootcamps)
+app.use('/api/v1/courses', courses)
 
 import errorHandler from './middlewares/error.js'
 app.use(errorHandler)
