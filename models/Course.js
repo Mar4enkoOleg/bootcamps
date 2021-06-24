@@ -40,7 +40,7 @@ const CourseSchema = Schema({
 })
 
 CourseSchema.statics.getAverageCost = async function (bootcampId) {
-  console.log('Calc avg cost'.yellow)
+  // console.log('Calc avg cost'.yellow)
   const obj = await this.aggregate([
     {
       $match: { bootcamp: bootcampId },
