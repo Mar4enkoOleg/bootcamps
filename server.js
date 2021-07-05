@@ -18,6 +18,7 @@ connectDB()
 // Import routes
 import bootcamps from './routes/bootcamps.js'
 import courses from './routes/courses.js'
+import auth from './routes/auth.js'
 
 const PORT = process.env.PORT || 3002
 const app = express()
@@ -39,6 +40,7 @@ app.use(express.static(join(__dirname, 'public')))
 // Routes
 app.use('/api/v1/bootcamps', bootcamps)
 app.use('/api/v1/courses', courses)
+app.use('/api/v1/auth', auth)
 
 import errorHandler from './middlewares/error.js'
 app.use(errorHandler)
