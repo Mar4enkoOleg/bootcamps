@@ -4,6 +4,7 @@ import morgan from 'morgan'
 import colors from 'colors'
 colors.enable()
 import fileupload from 'express-fileupload'
+import cookieParser from 'cookie-parser'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url)
@@ -25,6 +26,7 @@ const app = express()
 
 // Middlewares
 app.use(express.json())
+app.use(cookieParser())
 
 // app.use(logger)
 if (process.env.NODE_ENV === 'development') {
